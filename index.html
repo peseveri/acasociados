@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&amp;C Asociados – Mantenimiento y Modernización Eléctrica</title>
+  <meta name="description" content="A&C Asociados: electricistas matriculados. Tableros eléctricos, iluminación LED, diagnóstico de fallas, cámaras de seguridad y mantenimiento para hogares, comercios y consorcios. 1 año de garantía en mano de obra." />
+  <meta name="theme-color" content="#05162A" />
+  <meta property="og:title" content="A&C Asociados – Mantenimiento y Modernización Eléctrica" />
+  <meta property="og:description" content="Instalaciones eléctricas seguras, prolijas y con garantía. Pedí tu presupuesto por WhatsApp." />
+  <meta property="og:image" content="assets/img/hero-piscina.jpg" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            // Paleta tomada del logo y el brochure de A&C Asociados
+            navy:  { 950:'#05162A', 900:'#0A2540', 800:'#0D3360', 700:'#033260' },
+            brand: { 50:'#EEF6FC', 100:'#D9ECF8', 200:'#B3D9F1', 500:'#1477C4', 600:'#005E9C', 700:'#004A7C' },
+            volt:  { 100:'#E3F4FC', 300:'#7FCBF0', 400:'#3DAEE6', 500:'#1F9AD6' },
+            ink:   '#0B1B2E',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; color: #0B1B2E; background: #fff; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Montserrat', sans-serif; }
+
+    /* Fondo "circuito" inspirado en el logo */
+    .circuit {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%233DAEE6' stroke-opacity='0.13' stroke-width='1.5'%3E%3Cpath d='M0 40h50l20 20h40l20-20h30'/%3E%3Cpath d='M40 160v-40l20-20V60'/%3E%3Cpath d='M120 0v30l-10 10'/%3E%3Cpath d='M160 120h-40l-20 20v20'/%3E%3C/g%3E%3Cg fill='%233DAEE6' fill-opacity='0.22'%3E%3Ccircle cx='50' cy='40' r='3.5'/%3E%3Ccircle cx='110' cy='60' r='3.5'/%3E%3Ccircle cx='60' cy='60' r='3.5'/%3E%3Ccircle cx='120' cy='120' r='3.5'/%3E%3Ccircle cx='110' cy='40' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .glow { position:absolute; border-radius:9999px; filter: blur(80px); pointer-events:none; }
+
+    /* Rayo animado */
+    @keyframes flicker { 0%,100%{opacity:1} 45%{opacity:1} 48%{opacity:.35} 52%{opacity:1} 70%{opacity:.7} 72%{opacity:1} }
+    .flicker { animation: flicker 4s infinite; }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .floaty  { animation: floaty 5s ease-in-out infinite; }
+    .floaty2 { animation: floaty 6s ease-in-out infinite 1s; }
+
+    /* Botones */
+    .btn-wa { background:#25D366; color:#fff; transition: transform .2s, box-shadow .2s, background .2s; box-shadow: 0 10px 25px -8px rgba(37,211,102,.55); }
+    .btn-wa:hover { background:#1ebe5d; transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(37,211,102,.7); }
+    .btn-primary { background:#005E9C; color:#fff; transition: transform .2s, background .2s, box-shadow .2s; box-shadow: 0 10px 25px -10px rgba(0,94,156,.7); }
+    .btn-primary:hover { background:#1477C4; transform: translateY(-2px); }
+    .btn-ghost { border:2px solid rgba(127,203,240,.35); color:#fff; transition: border-color .2s, background .2s; }
+    .btn-ghost:hover { border-color:#3DAEE6; background: rgba(61,174,230,.08); }
+
+    /* Tarjetas */
+    .card { transition: transform .3s ease, box-shadow .3s ease, border-color .3s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -20px rgba(3,50,96,.35); }
+    .accent-l { border-left: 3px solid #3DAEE6; }
+
+    /* Galería */
+    .g-item { overflow:hidden; cursor: zoom-in; }
+    .g-item img { width:100%; height:100%; object-fit:cover; transition: transform .6s ease; }
+    .g-item:hover img { transform: scale(1.06); }
+    .tab-btn[aria-selected="true"] { background:#005E9C; color:#fff; border-color:#005E9C; }
+
+    /* Lightbox */
+    #lightbox { background: rgba(5,22,42,.94); }
+    #lightbox img { max-height: 86vh; max-width: 92vw; }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1; transform:none; transition:none; }
+      .flicker, .floaty, .floaty2, .float-wa { animation:none !important; }
+    }
+
+    /* FAQ */
+    details summary { list-style:none; cursor:pointer; }
+    details summary::-webkit-details-marker { display:none; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform .25s; }
+
+    /* WhatsApp flotante */
+    .float-wa {
+      width: 3.75rem; height: 3.75rem; border-radius: 9999px; background:#25D366;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 6px 24px rgba(37,211,102,.5); transition: transform .2s;
+      animation: pulse-wa 2.5s infinite;
+    }
+    .float-wa:hover { transform: scale(1.08); }
+    @keyframes pulse-wa { 0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,.5); } 50% { box-shadow: 0 6px 36px rgba(37,211,102,.9); } }
+
+    .nav-scrolled { box-shadow: 0 8px 30px -16px rgba(3,50,96,.45); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ================================================
+       ÍCONOS (sprite SVG reutilizable)
+  ================================================ -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path fill="currentColor" d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.054 23.25a.75.75 0 00.916.983l5.578-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.708 9.708 0 01-4.953-1.355l-.355-.21-3.676.962.98-3.585-.23-.37A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 3h16v18H4zM4 9h16M4 15h16M8 5.5v1.5M11 5.5v1.5M14 5.5v1.5M8 11.5v1.5M11 11.5v1.5M8 17.5v1.5"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0012 3z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.35-4.35M11 8l-1.5 3h3L11 14"/></symbol>
+    <symbol id="i-cable" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 3v4M11 3v4M5 7h8v4a4 4 0 01-8 0V7zM9 15v2a4 4 0 004 4h2a4 4 0 004-4V7"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 7l13-3 2 6-13 3-2-6zM16.5 8.5L21 9v4l-3.5-.8M8 13.5V20M5 20h6"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5z"/></symbol>
+  </svg>
+
+  <!-- ================================================
+       BOTÓN FLOTANTE WHATSAPP (elige número)
+  ================================================ -->
+  <div id="waFloat" class="fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-3">
+    <div id="waMenu" class="hidden bg-white rounded-2xl shadow-2xl p-3 w-64 border border-brand-100">
+      <p class="text-xs font-bold uppercase tracking-wider text-brand-600 px-2 pt-1 pb-2">Escribinos por WhatsApp</p>
+      <a href="https://wa.me/5491128632690?text=Hola%20A%26C%20Asociados%2C%20quiero%20consultar%20por%20un%20trabajo%20el%C3%A9ctrico." target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-2 py-3 rounded-xl hover:bg-brand-50">
+        <span class="w-10 h-10 rounded-full btn-wa grid place-items-center shrink-0"><svg width="20" height="20"><use href="#i-wa"/></svg></span>
+        <span><span class="block font-bold text-navy-900">11 2863-2690</span><span class="text-xs text-ink/55">Línea 1</span></span>
+      </a>
+      <a href="https://wa.me/5491134039096?text=Hola%20A%26C%20Asociados%2C%20quiero%20consultar%20por%20un%20trabajo%20el%C3%A9ctrico." target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-2 py-3 rounded-xl hover:bg-brand-50">
+        <span class="w-10 h-10 rounded-full btn-wa grid place-items-center shrink-0"><svg width="20" height="20"><use href="#i-wa"/></svg></span>
+        <span><span class="block font-bold text-navy-900">11 3403-9096</span><span class="text-xs text-ink/55">Línea 2</span></span>
+      </a>
+    </div>
+    <button id="waBtn" class="float-wa text-white" aria-label="Escribinos por WhatsApp" aria-expanded="false" aria-controls="waMenu">
+      <svg width="30" height="30"><use href="#i-wa"/></svg>
+    </button>
+  </div>
+
+  <!-- ================================================
+       NAV
+  ================================================ -->
+  <header id="nav" class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur transition-shadow duration-300">
+    <div class="max-w-6xl mx-auto px-5 h-20 flex items-center justify-between">
+      <a href="#inicio" class="flex items-center" aria-label="A&C Asociados – Inicio">
+        <img src="assets/img/logo.png" alt="A&C Asociados – Mantenimiento y Modernización Eléctrica" class="h-12 md:h-14 w-auto" />
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 font-semibold text-navy-900/80 text-[15px]">
+        <a href="#servicios" class="hover:text-brand-600 transition-colors">Servicios</a>
+        <a href="#trabajos" class="hover:text-brand-600 transition-colors">Trabajos</a>
+        <a href="#garantia" class="hover:text-brand-600 transition-colors">Garantía</a>
+        <a href="#nosotros" class="hover:text-brand-600 transition-colors">Nosotros</a>
+        <a href="#faq" class="hover:text-brand-600 transition-colors">Preguntas</a>
+        <a href="#contacto" class="btn-wa px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2"><svg width="16" height="16"><use href="#i-wa"/></svg>Presupuesto</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden w-12 h-12 rounded-xl bg-brand-50 grid place-items-center" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#033260" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden hidden px-5 pb-5">
+      <div class="bg-white rounded-3xl shadow-xl p-4 flex flex-col gap-1 font-semibold border border-brand-100">
+        <a href="#servicios" class="py-3 px-3 rounded-xl hover:bg-brand-50">Servicios</a>
+        <a href="#trabajos" class="py-3 px-3 rounded-xl hover:bg-brand-50">Trabajos</a>
+        <a href="#garantia" class="py-3 px-3 rounded-xl hover:bg-brand-50">Garantía</a>
+        <a href="#nosotros" class="py-3 px-3 rounded-xl hover:bg-brand-50">Nosotros</a>
+        <a href="#faq" class="py-3 px-3 rounded-xl hover:bg-brand-50">Preguntas frecuentes</a>
+        <a href="#contacto" class="btn-wa mt-2 py-3.5 rounded-full text-center">Pedir presupuesto por WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================
+       HERO
+  ================================================ -->
+  <section id="inicio" class="relative overflow-hidden bg-navy-950 text-white pt-32 pb-20 md:pt-40 md:pb-28">
+    <div class="absolute inset-0 circuit"></div>
+    <div class="glow bg-brand-600/40 w-[520px] h-[520px] -top-40 -left-40"></div>
+    <div class="glow bg-volt-400/25 w-[420px] h-[420px] bottom-0 -right-32"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-5 grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal">
+        <span class="inline-flex items-center gap-2 bg-white/5 text-volt-300 font-semibold text-sm px-4 py-2 rounded-full border border-volt-400/25">
+          <svg width="16" height="16" class="flicker text-volt-400"><use href="#i-bolt"/></svg>
+          Mantenimiento y modernización eléctrica
+        </span>
+
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] mt-6 mb-6">
+          Instalaciones eléctricas <span class="text-volt-400">seguras, prolijas</span> y con garantía
+        </h1>
+
+        <p class="text-lg md:text-xl text-brand-100/80 max-w-lg mb-9 leading-relaxed">
+          Tableros, iluminación, diagnóstico de fallas y mantenimiento para hogares, locales comerciales, consorcios y estudios de arquitectura. Mano de obra matriculada y <strong class="text-white">1 año de garantía</strong>.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contacto" class="btn-wa inline-flex items-center justify-center gap-3 font-bold text-lg px-8 py-4 rounded-full">
+            <svg width="22" height="22"><use href="#i-wa"/></svg>
+            Pedí tu presupuesto
+          </a>
+          <a href="#trabajos" class="btn-ghost inline-flex items-center justify-center gap-2 font-bold text-lg px-8 py-4 rounded-full">
+            Ver trabajos →
+          </a>
+        </div>
+
+        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10 text-sm font-semibold text-brand-100/90">
+          <li class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-volt-400/15 text-volt-400 grid place-items-center"><svg width="14" height="14"><use href="#i-check"/></svg></span>Profesionales matriculados</li>
+          <li class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-volt-400/15 text-volt-400 grid place-items-center"><svg width="14" height="14"><use href="#i-check"/></svg></span>Presupuesto por escrito</li>
+          <li class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-volt-400/15 text-volt-400 grid place-items-center"><svg width="14" height="14"><use href="#i-check"/></svg></span>Según normativa vigente</li>
+        </ul>
+      </div>
+
+      <!-- Imagen hero -->
+      <div class="relative reveal">
+        <div class="relative mx-auto w-full max-w-md aspect-[4/5]">
+          <div class="absolute inset-0 bg-gradient-to-br from-volt-400 to-brand-600 rounded-[2.5rem] rotate-6 opacity-80"></div>
+          <img src="assets/img/hero-piscina.jpg"
+               alt="Iluminación exterior de piscina y quincho – Sabemos lo que hacemos"
+               class="relative w-full h-full object-cover rounded-[2.5rem] shadow-2xl ring-1 ring-white/10" />
+
+          <div class="floaty absolute -left-3 md:-left-12 bottom-36 bg-white text-ink rounded-2xl shadow-xl p-4 flex items-center gap-3">
+            <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 grid place-items-center"><svg width="24" height="24"><use href="#i-shield"/></svg></span>
+            <div>
+              <p class="font-heading font-bold text-navy-900 leading-tight">1 año de garantía</p>
+              <p class="text-xs text-ink/60 font-semibold">En mano de obra</p>
+            </div>
+          </div>
+
+          <div class="floaty2 absolute -right-3 md:-right-10 -bottom-5 bg-white text-ink rounded-2xl shadow-xl p-4 flex items-center gap-3">
+            <span class="w-11 h-11 rounded-xl bg-volt-100 text-volt-500 grid place-items-center"><svg width="22" height="22"><use href="#i-bolt"/></svg></span>
+            <div>
+              <p class="font-heading font-bold text-navy-900 leading-tight">Mono y trifásico</p>
+              <p class="text-xs text-ink/60 font-semibold">Hogar y comercio</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FRANJA DE CONFIANZA
+  ================================================ -->
+  <section class="bg-brand-600 text-white">
+    <div class="max-w-6xl mx-auto px-5 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div><p class="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">100%</p><p class="text-brand-100 text-sm font-semibold mt-1">Trabajos con garantía</p></div>
+      <div><p class="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">1 año</p><p class="text-brand-100 text-sm font-semibold mt-1">De garantía en mano de obra</p></div>
+      <div><p class="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">Matriculados</p><p class="text-brand-100 text-sm font-semibold mt-1">Mano de obra profesional</p></div>
+      <div><p class="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">Por escrito</p><p class="text-brand-100 text-sm font-semibold mt-1">Presupuesto detallado</p></div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SERVICIOS
+  ================================================ -->
+  <section id="servicios" class="py-24 px-5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Servicios</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3 mb-4">Todo lo eléctrico, resuelto</h2>
+        <p class="text-ink/65 text-lg">Desde una falla puntual hasta la modernización completa de la instalación. Trabajamos con materiales certificados de primera línea.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card reveal bg-white rounded-3xl p-8 border border-brand-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-panel"/></svg></div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mb-2">Tableros eléctricos</h3>
+          <p class="text-ink/65 leading-relaxed">Armado, adecuación y reemplazo de tableros mono y trifásicos. Térmicas, disyuntores, protectores de tensión y circuitos rotulados.</p>
+        </div>
+        <div class="card reveal bg-white rounded-3xl p-8 border border-brand-100">
+          <div class="w-14 h-14 rounded-2xl bg-volt-100 text-volt-500 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-bulb"/></svg></div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mb-2">Iluminación LED</h3>
+          <p class="text-ink/65 leading-relaxed">Diseño e instalación de iluminación interior, comercial y exterior: rieles, spots, apliques, tiras LED, jardines y piscinas.</p>
+        </div>
+        <div class="card reveal bg-white rounded-3xl p-8 border border-brand-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-search"/></svg></div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mb-2">Diagnóstico de fallas</h3>
+          <p class="text-ink/65 leading-relaxed">Detectamos el origen del problema: cortocircuitos, saltos de térmica, cableado deteriorado o conexiones flojas.</p>
+        </div>
+        <div class="card reveal bg-white rounded-3xl p-8 border border-brand-100">
+          <div class="w-14 h-14 rounded-2xl bg-volt-100 text-volt-500 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-cable"/></svg></div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mb-2">Instalaciones y recableado</h3>
+          <p class="text-ink/65 leading-relaxed">Instalaciones nuevas, canalizaciones y recableado completo para obras, reformas y locales que se renuevan.</p>
+        </div>
+        <div class="card reveal bg-white rounded-3xl p-8 border border-brand-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-cam"/></svg></div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mb-2">Cámaras de seguridad</h3>
+          <p class="text-ink/65 leading-relaxed">Revisión y puesta en funcionamiento de circuitos de CCTV: análisis de cámaras, cableado y conexión con el grabador.</p>
+        </div>
+        <div class="card reveal rounded-3xl p-8 bg-gradient-to-br from-brand-600 to-navy-800 text-white relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 text-white/10"><svg width="150" height="150"><use href="#i-bolt"/></svg></div>
+          <div class="w-14 h-14 rounded-2xl bg-white/15 grid place-items-center mb-5"><svg width="30" height="30"><use href="#i-wrench"/></svg></div>
+          <h3 class="font-heading text-xl font-bold mb-2">Mantenimiento preventivo</h3>
+          <p class="text-white/85 leading-relaxed mb-5">Inspecciones, balanceo de fases y mantenimiento programado, incluso fuera del horario comercial.</p>
+          <a href="#contacto" class="relative inline-flex items-center gap-2 bg-white text-brand-700 font-bold px-5 py-3 rounded-full hover:bg-brand-50 transition-colors">
+            <svg width="18" height="18"><use href="#i-wa"/></svg> Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       PARA QUIÉN (segmentos del brochure)
+  ================================================ -->
+  <section class="relative py-24 px-5 bg-navy-950 text-white overflow-hidden">
+    <div class="absolute inset-0 circuit opacity-70"></div>
+    <div class="glow bg-brand-600/30 w-[480px] h-[480px] -top-40 right-0"></div>
+    <div class="relative max-w-6xl mx-auto">
+      <div class="max-w-2xl mb-14 reveal">
+        <span class="text-volt-400 font-bold uppercase tracking-widest text-sm">A quién ayudamos</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold mt-3 mb-4">Soluciones a medida de cada cliente</h2>
+        <p class="text-brand-100/75 text-lg">Cada tipo de proyecto tiene sus tiempos y exigencias. Nos adaptamos a ellos.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="reveal rounded-3xl bg-white/[0.04] border border-white/10 p-8">
+          <h3 class="font-heading text-2xl font-bold accent-l pl-4">Hogares</h3>
+          <p class="text-volt-300 mt-4 font-medium">Tranquilidad y seguridad para tu familia</p>
+          <p class="text-brand-100/75 mt-2 leading-relaxed">Reparaciones, actualización de tableros, iluminación interior y exterior, patios, jardines y piscinas.</p>
+        </div>
+        <div class="reveal rounded-3xl bg-white/[0.04] border border-white/10 p-8">
+          <h3 class="font-heading text-2xl font-bold accent-l pl-4">Locales comerciales</h3>
+          <p class="text-volt-300 mt-4 font-medium">Continuidad de negocio garantizada</p>
+          <p class="text-brand-100/75 mt-2 leading-relaxed">Evitá costosas interrupciones operativas con sistemas redundantes y eficientes. Iluminación comercial, balanceo de fases y trabajos programados fuera de horario.</p>
+        </div>
+        <div class="reveal rounded-3xl bg-white/[0.04] border border-white/10 p-8">
+          <h3 class="font-heading text-2xl font-bold accent-l pl-4">Estudios de arquitectura</h3>
+          <p class="text-volt-300 mt-4 font-medium">Atención especializada para proyectos de alto nivel</p>
+          <p class="text-brand-100/75 mt-2 leading-relaxed">Soluciones eléctricas modernas que respetan y potencian el diseño. Soporte técnico en obra desde el anteproyecto, planos ejecutivos y certificación según normativas vigentes.</p>
+        </div>
+        <div class="reveal rounded-3xl bg-white/[0.04] border border-white/10 p-8">
+          <h3 class="font-heading text-2xl font-bold accent-l pl-4">Inmobiliarias y consorcios</h3>
+          <p class="text-volt-300 mt-4 font-medium">Gestión de activos con máxima agilidad</p>
+          <p class="text-brand-100/75 mt-2 leading-relaxed">Propiedades que cumplen estrictamente las normas de seguridad eléctrica. Informes técnicos pre-venta, adecuación de tableros y mantenimiento preventivo rápido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       ANTES / DESPUÉS
+  ================================================ -->
+  <section id="antes-despues" class="py-24 px-5 bg-brand-50/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Antes y después</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3 mb-4">Lo que no debería… y lo que debe ser</h2>
+        <p class="text-ink/65 text-lg">Muchas instalaciones esconden riesgos. Así las dejamos nosotros.</p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="reveal grid grid-cols-2 gap-3 md:gap-6 bg-white rounded-3xl p-3 md:p-5 shadow-sm">
+          <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+            <img src="assets/img/antes-cableado.jpg" alt="Tablero con cableado desordenado y deteriorado antes del trabajo" class="w-full h-full object-cover" loading="lazy" />
+            <figcaption class="absolute top-3 left-3 bg-red-600 text-white text-xs md:text-sm font-bold px-3 py-1 rounded-full">Antes</figcaption>
+          </figure>
+          <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+            <img src="assets/img/despues-cableado.jpg" alt="Tablero nuevo, ordenado y con protecciones después del trabajo" class="w-full h-full object-cover" loading="lazy" />
+            <figcaption class="absolute top-3 left-3 bg-emerald-600 text-white text-xs md:text-sm font-bold px-3 py-1 rounded-full">Después</figcaption>
+          </figure>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="reveal grid grid-cols-2 gap-3 bg-white rounded-3xl p-3 shadow-sm">
+            <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="assets/img/antes-tablero.jpg" alt="Caja de térmicas vieja con cables expuestos" class="w-full h-full object-cover" loading="lazy" />
+              <figcaption class="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">Antes</figcaption>
+            </figure>
+            <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="assets/img/despues-tablero.jpg" alt="Tablero moderno con térmicas rotuladas" class="w-full h-full object-cover" loading="lazy" />
+              <figcaption class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Después</figcaption>
+            </figure>
+          </div>
+          <div class="reveal grid grid-cols-2 gap-3 bg-white rounded-3xl p-3 shadow-sm">
+            <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="assets/img/antes-conexion.jpg" alt="Conexiones eléctricas expuestas en pared" class="w-full h-full object-cover" loading="lazy" />
+              <figcaption class="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">Antes</figcaption>
+            </figure>
+            <figure class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="assets/img/despues-conexion.jpg" alt="Caja estanca con contactor, cableado prolijo" class="w-full h-full object-cover" loading="lazy" />
+              <figcaption class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Después</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       TRABAJOS (galería con filtro)
+  ================================================ -->
+  <section id="trabajos" class="py-24 px-5">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 reveal">
+        <div class="max-w-xl">
+          <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Trabajos realizados</span>
+          <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3 mb-4">Sabemos lo que hacemos</h2>
+          <p class="text-ink/65 text-lg">Algunas obras reales de nuestro equipo en casas y locales comerciales.</p>
+        </div>
+        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filtrar trabajos">
+          <button class="tab-btn px-5 py-2.5 rounded-full border-2 border-brand-200 bg-white font-bold text-brand-700 transition-colors" role="tab" aria-selected="true"  data-filter="all">Todo</button>
+          <button class="tab-btn px-5 py-2.5 rounded-full border-2 border-brand-200 bg-white font-bold text-brand-700 transition-colors" role="tab" aria-selected="false" data-filter="ilum">Iluminación</button>
+          <button class="tab-btn px-5 py-2.5 rounded-full border-2 border-brand-200 bg-white font-bold text-brand-700 transition-colors" role="tab" aria-selected="false" data-filter="tab">Tableros</button>
+          <button class="tab-btn px-5 py-2.5 rounded-full border-2 border-brand-200 bg-white font-bold text-brand-700 transition-colors" role="tab" aria-selected="false" data-filter="obra">En obra</button>
+        </div>
+      </div>
+
+      <!-- Para agregar fotos: duplicá un bloque .g-item y elegí data-cat (ilum | tab | obra) -->
+      <div id="gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        <button class="g-item rounded-2xl aspect-square col-span-2 row-span-2" data-cat="ilum"><img src="assets/img/ilum-cafe-2.jpg" alt="Iluminación de cafetería con apliques circulares y spots" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-2.jpg" alt="Armado de tablero eléctrico con térmicas y disyuntores" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-patio.jpg" alt="Iluminación de patio con apliques en muro de piedra" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-estante.jpg" alt="Tira LED embutida en estantería de madera" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-7.jpg" alt="Tablero trifásico con protectores de tensión" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="obra"><img src="assets/img/diag-tecnico.jpg" alt="Técnico rotulando y ordenando cables en obra" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-cocina.jpg" alt="Iluminación de cocina con plafones LED" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-1.jpg" alt="Tablero domiciliario terminado con circuitos rotulados" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-cafe-3.jpg" alt="Apliques de pared en local gastronómico" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="obra"><img src="assets/img/diag-cano.jpg" alt="Cañería corroída detectada durante un diagnóstico" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-3.jpg" alt="Tablero en armado con riel DIN y protecciones" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-aplique.jpg" alt="Aplique exterior iluminando muro y planta" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="obra"><img src="assets/img/obra-cafe.jpg" alt="Instalación en curso en local gastronómico" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-5.jpg" alt="Tablero embutido con térmicas nuevas" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-spots.jpg" alt="Spots dobles de techo en color negro" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="obra"><img src="assets/img/diag-rotulado.jpg" alt="Cables identificados por circuito durante el recableado" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-6.jpg" alt="Tablero de local comercial con múltiples circuitos" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-cafe-1.jpg" alt="Iluminación ambiental en cafetería" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="tab"><img src="assets/img/tablero-4.jpg" alt="Tablero de gran tamaño con interruptores" loading="lazy" /></button>
+        <button class="g-item rounded-2xl aspect-square" data-cat="ilum"><img src="assets/img/ilum-jardin.jpg" alt="Iluminación de jardín y galería" loading="lazy" /></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       VIDEOS
+  ================================================ -->
+  <section id="videos" class="relative py-24 px-5 bg-navy-950 text-white overflow-hidden">
+    <div class="absolute inset-0 circuit opacity-60"></div>
+    <div class="relative max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <span class="text-volt-400 font-bold uppercase tracking-widest text-sm">Manos a la obra</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold mt-3 mb-4">Mirá cómo trabajamos</h2>
+        <p class="text-brand-100/75 text-lg">Precisión en cada detalle: medición láser, armado de tableros e instalación de iluminación.</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <figure class="reveal">
+          <video class="w-full aspect-[9/16] object-cover rounded-2xl bg-navy-900 ring-1 ring-white/10" src="assets/video/tablero-trifasico.mp4" poster="assets/video/tablero-trifasico.jpg" controls playsinline preload="none"></video>
+          <figcaption class="mt-3 text-sm font-semibold text-brand-100/85">Tablero trifásico para local comercial</figcaption>
+        </figure>
+        <figure class="reveal">
+          <video class="w-full aspect-[9/16] object-cover rounded-2xl bg-navy-900 ring-1 ring-white/10" src="assets/video/iluminacion-riel.mp4" poster="assets/video/iluminacion-riel.jpg" controls playsinline preload="none"></video>
+          <figcaption class="mt-3 text-sm font-semibold text-brand-100/85">Iluminación con rieles LED</figcaption>
+        </figure>
+        <figure class="reveal">
+          <video class="w-full aspect-[9/16] object-cover rounded-2xl bg-navy-900 ring-1 ring-white/10" src="assets/video/nivel-laser-cafe.mp4" poster="assets/video/nivel-laser-cafe.jpg" controls playsinline preload="none"></video>
+          <figcaption class="mt-3 text-sm font-semibold text-brand-100/85">Replanteo con nivel láser en cafetería</figcaption>
+        </figure>
+        <figure class="reveal">
+          <video class="w-full aspect-[9/16] object-cover rounded-2xl bg-navy-900 ring-1 ring-white/10" src="assets/video/nivel-laser-piso.mp4" poster="assets/video/nivel-laser-piso.jpg" controls playsinline preload="none"></video>
+          <figcaption class="mt-3 text-sm font-semibold text-brand-100/85">Marcado preciso antes de instalar</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CÓMO TRABAJAMOS
+  ================================================ -->
+  <section class="py-24 px-5">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Simple y transparente</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3">Cómo trabajamos</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 relative">
+        <div class="hidden lg:block absolute top-10 left-[12%] right-[12%] border-t-[3px] border-dashed border-brand-200"></div>
+        <div class="reveal text-center relative">
+          <div class="w-20 h-20 mx-auto rounded-full bg-brand-600 text-white font-heading text-3xl font-extrabold grid place-items-center shadow-xl shadow-brand-600/30 ring-8 ring-white">1</div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mt-6 mb-2">Nos escribís</h3>
+          <p class="text-ink/65 max-w-xs mx-auto">Contanos por WhatsApp qué necesitás. Si podés, mandanos fotos.</p>
+        </div>
+        <div class="reveal text-center relative">
+          <div class="w-20 h-20 mx-auto rounded-full bg-volt-400 text-white font-heading text-3xl font-extrabold grid place-items-center shadow-xl shadow-volt-400/30 ring-8 ring-white">2</div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mt-6 mb-2">Relevamiento</h3>
+          <p class="text-ink/65 max-w-xs mx-auto">Revisamos la instalación y detectamos el origen de cada problema.</p>
+        </div>
+        <div class="reveal text-center relative">
+          <div class="w-20 h-20 mx-auto rounded-full bg-brand-600 text-white font-heading text-3xl font-extrabold grid place-items-center shadow-xl shadow-brand-600/30 ring-8 ring-white">3</div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mt-6 mb-2">Presupuesto escrito</h3>
+          <p class="text-ink/65 max-w-xs mx-auto">Te detallamos las tareas y el costo de mano de obra, sin sorpresas.</p>
+        </div>
+        <div class="reveal text-center relative">
+          <div class="w-20 h-20 mx-auto rounded-full bg-navy-800 text-white font-heading text-3xl font-extrabold grid place-items-center shadow-xl shadow-navy-800/30 ring-8 ring-white">4</div>
+          <h3 class="font-heading text-xl font-bold text-navy-900 mt-6 mb-2">Obra con garantía</h3>
+          <p class="text-ink/65 max-w-xs mx-auto">Ejecutamos el trabajo prolijo y te queda 1 año de garantía.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       GARANTÍA
+  ================================================ -->
+  <section id="garantia" class="py-24 px-5 bg-brand-50/60">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-5 gap-10 items-center">
+      <div class="lg:col-span-2 reveal">
+        <div class="relative rounded-[2.5rem] bg-navy-950 text-white p-10 overflow-hidden text-center">
+          <div class="absolute inset-0 circuit"></div>
+          <div class="glow bg-volt-400/30 w-72 h-72 -top-20 left-1/2 -translate-x-1/2"></div>
+          <div class="relative">
+            <svg width="64" height="64" class="mx-auto text-volt-400"><use href="#i-shield"/></svg>
+            <p class="font-heading text-7xl md:text-8xl font-black text-volt-400 mt-4 leading-none">1</p>
+            <p class="font-heading text-2xl font-extrabold mt-2">año de garantía</p>
+            <p class="text-brand-100/70 mt-2">sobre la mano de obra</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-3 reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Confianza y respaldo</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3 mb-6">Compromiso escrito en cada proyecto</h2>
+        <p class="text-ink/70 text-lg leading-relaxed mb-8">
+          Nuestra firma se caracteriza por brindar a sus clientes <strong class="text-navy-900">un año de garantía sobre los trabajos realizados</strong>. Si algo de lo que hicimos falla, volvemos y lo resolvemos.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-2xl p-5 accent-l">
+            <p class="font-heading font-bold text-navy-900 flex items-center gap-2"><svg width="18" height="18" class="text-emerald-600"><use href="#i-check"/></svg>Qué cubre</p>
+            <p class="text-ink/65 text-sm mt-2 leading-relaxed">La <strong>mano de obra</strong> de todos los trabajos realizados por nuestro equipo, durante 12 meses.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 accent-l">
+            <p class="font-heading font-bold text-navy-900 flex items-center gap-2"><span class="text-red-500 font-black">✕</span>Qué no cubre</p>
+            <p class="text-ink/65 text-sm mt-2 leading-relaxed">Los <strong>materiales</strong>, que tienen la garantía de su propio fabricante.</p>
+          </div>
+        </div>
+        <p class="text-sm text-ink/55 mt-6 leading-relaxed">
+          Válida siempre que se respeten las condiciones de uso recomendadas para los materiales utilizados y no se observen daños intencionales o deficiencias por manipulación de personas no idóneas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       NOSOTROS
+  ================================================ -->
+  <section id="nosotros" class="py-24 px-5 bg-white">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <div class="reveal relative">
+        <div class="grid grid-cols-2 gap-4">
+          <img src="assets/img/diag-tecnico.jpg" alt="Profesional de A&C trabajando con linterna frontal" class="rounded-3xl object-cover w-full h-72 md:h-80 mt-10" loading="lazy" />
+          <img src="assets/img/ilum-cafe-2.jpg" alt="Local gastronómico iluminado por A&C" class="rounded-3xl object-cover w-full h-72 md:h-80" loading="lazy" />
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 -bottom-6 bg-navy-900 text-white rounded-2xl px-6 py-4 shadow-xl flex items-center gap-3 whitespace-nowrap">
+          <svg width="28" height="28" class="text-volt-400"><use href="#i-bolt"/></svg>
+          <div><p class="font-heading font-bold text-lg leading-tight">Mano de obra matriculada</p><p class="text-brand-100/70 text-xs font-semibold">Materiales certificados</p></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Quiénes somos</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3 mb-6">Podés pensarlo… podemos hacerlo</h2>
+        <p class="text-ink/70 text-lg leading-relaxed mb-5">
+          En A&amp;C Asociados nos dedicamos al mantenimiento y la modernización de instalaciones eléctricas. Detrás de cada trabajo están Alejandro Burgos y César Fernández, profesionales matriculados que se ocupan personalmente de cada obra.
+        </p>
+        <p class="text-ink/70 text-lg leading-relaxed mb-8">
+          Creemos que una buena instalación no solo funciona: se ve prolija, está bien rotulada y es segura para quienes la usan todos los días.
+        </p>
+        <ul class="grid sm:grid-cols-2 gap-4">
+          <li class="flex items-center gap-3 font-semibold"><span class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 grid place-items-center shrink-0"><svg width="16" height="16"><use href="#i-check"/></svg></span>Normativas vigentes</li>
+          <li class="flex items-center gap-3 font-semibold"><span class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 grid place-items-center shrink-0"><svg width="16" height="16"><use href="#i-check"/></svg></span>Circuitos rotulados</li>
+          <li class="flex items-center gap-3 font-semibold"><span class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 grid place-items-center shrink-0"><svg width="16" height="16"><use href="#i-check"/></svg></span>Informes técnicos</li>
+          <li class="flex items-center gap-3 font-semibold"><span class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 grid place-items-center shrink-0"><svg width="16" height="16"><use href="#i-check"/></svg></span>Trabajo limpio y ordenado</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FAQ
+  ================================================ -->
+  <section id="faq" class="py-24 px-5 bg-brand-50/60">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="text-brand-600 font-bold uppercase tracking-widest text-sm">Preguntas frecuentes</span>
+        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-navy-900 mt-3">¿Tenés dudas?</h2>
+      </div>
+      <div class="space-y-4">
+        <details class="reveal bg-white rounded-2xl p-6 border border-brand-100" open>
+          <summary class="flex justify-between items-center gap-4 font-heading text-lg font-bold text-navy-900">¿Qué cubre la garantía?<span class="faq-icon text-brand-600 text-3xl leading-none">+</span></summary>
+          <p class="text-ink/70 mt-4 leading-relaxed">Damos 1 año de garantía sobre la mano de obra. No cubre materiales (tienen la garantía de su fabricante) y es válida siempre que se respeten los debidos usos y no haya daños intencionales o intervenciones de personas no idóneas.</p>
+        </details>
+        <details class="reveal bg-white rounded-2xl p-6 border border-brand-100">
+          <summary class="flex justify-between items-center gap-4 font-heading text-lg font-bold text-navy-900">¿El presupuesto incluye los materiales?<span class="faq-icon text-brand-600 text-3xl leading-none">+</span></summary>
+          <p class="text-ink/70 mt-4 leading-relaxed">El presupuesto detalla la mano de obra. Los materiales se cotizan por separado y te indicamos exactamente qué hace falta, siempre de primera línea y certificados.</p>
+        </details>
+        <details class="reveal bg-white rounded-2xl p-6 border border-brand-100">
+          <summary class="flex justify-between items-center gap-4 font-heading text-lg font-bold text-navy-900">¿Trabajan en locales comerciales fuera de horario?<span class="faq-icon text-brand-600 text-3xl leading-none">+</span></summary>
+          <p class="text-ink/70 mt-4 leading-relaxed">Sí. Para no interrumpir tu negocio, podemos programar los trabajos y el mantenimiento fuera del horario comercial.</p>
+        </details>
+        <details class="reveal bg-white rounded-2xl p-6 border border-brand-100">
+          <summary class="flex justify-between items-center gap-4 font-heading text-lg font-bold text-navy-900">Se me corta la luz o salta la térmica, ¿qué hago?<span class="faq-icon text-brand-600 text-3xl leading-none">+</span></summary>
+          <p class="text-ink/70 mt-4 leading-relaxed">No fuerces la térmica ni el disyuntor. Escribinos por WhatsApp contando qué pasa (y si podés, con una foto del tablero) y coordinamos un diagnóstico para encontrar la causa.</p>
+        </details>
+        <details class="reveal bg-white rounded-2xl p-6 border border-brand-100">
+          <summary class="flex justify-between items-center gap-4 font-heading text-lg font-bold text-navy-900">¿Hacen informes técnicos o certificaciones?<span class="faq-icon text-brand-600 text-3xl leading-none">+</span></summary>
+          <p class="text-ink/70 mt-4 leading-relaxed">Sí. Realizamos informes técnicos pre-venta para inmobiliarias, adecuación de tableros y certificación según normativas vigentes.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       CTA FINAL / CONTACTO
+  ================================================ -->
+  <section id="contacto" class="py-20 px-5">
+    <div class="max-w-6xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-navy-950 text-white reveal">
+      <div class="absolute inset-0 circuit"></div>
+      <div class="glow bg-brand-600/50 w-96 h-96 -top-24 -left-20"></div>
+      <div class="glow bg-volt-400/30 w-80 h-80 -bottom-24 -right-16"></div>
+      <div class="relative z-10 grid lg:grid-cols-2 gap-10 items-center p-8 md:p-16">
+        <div>
+          <h2 class="font-heading text-3xl md:text-5xl font-extrabold mb-5 leading-tight">¿Tenés un proyecto o un problema eléctrico?</h2>
+          <p class="text-brand-100/80 text-lg mb-8">Escribinos y te respondemos a la brevedad. Sin compromiso.</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <a href="https://wa.me/5491128632690?text=Hola%20A%26C%20Asociados%2C%20quiero%20pedir%20un%20presupuesto." target="_blank" rel="noopener noreferrer" class="btn-wa flex items-center gap-3 font-bold px-6 py-4 rounded-2xl">
+              <svg width="28" height="28"><use href="#i-wa"/></svg>
+              <span><span class="block text-xs font-semibold opacity-85">WhatsApp</span><span class="text-lg">11 2863-2690</span></span>
+            </a>
+            <a href="https://wa.me/5491134039096?text=Hola%20A%26C%20Asociados%2C%20quiero%20pedir%20un%20presupuesto." target="_blank" rel="noopener noreferrer" class="btn-wa flex items-center gap-3 font-bold px-6 py-4 rounded-2xl">
+              <svg width="28" height="28"><use href="#i-wa"/></svg>
+              <span><span class="block text-xs font-semibold opacity-85">WhatsApp</span><span class="text-lg">11 3403-9096</span></span>
+            </a>
+          </div>
+        </div>
+        <div class="hidden lg:block">
+          <img src="assets/img/pensarlo-hacerlo.jpg" alt="Podés pensarlo… podemos hacerlo: antes y después de un living iluminado" class="rounded-3xl shadow-2xl ring-1 ring-white/10 w-full max-w-sm mx-auto" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <footer class="bg-navy-950 text-brand-100 pt-16 pb-28 md:pb-10 px-5">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-10 mb-12">
+        <div>
+          <a href="#inicio" class="inline-block bg-white rounded-2xl px-4 py-3 mb-5">
+            <img src="assets/img/logo.png" alt="A&C Asociados" class="h-12 w-auto" loading="lazy" />
+          </a>
+          <p class="text-brand-100/65 max-w-xs">Mantenimiento y modernización eléctrica para hogares, comercios, consorcios y estudios de arquitectura.</p>
+        </div>
+        <div>
+          <h4 class="font-heading text-volt-400 text-lg font-bold mb-4">Contacto</h4>
+          <ul class="space-y-3 text-brand-100/80">
+            <li><a href="https://wa.me/5491128632690" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-white"><svg width="18" height="18"><use href="#i-wa"/></svg>11 2863-2690</a></li>
+            <li><a href="https://wa.me/5491134039096" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-white"><svg width="18" height="18"><use href="#i-wa"/></svg>11 3403-9096</a></li>
+            <li><a href="mailto:alejandrogustavo.burgos@copime.org.ar" class="flex items-center gap-2 hover:text-white break-all"><svg width="18" height="18" class="shrink-0"><use href="#i-mail"/></svg>alejandrogustavo.burgos@copime.org.ar</a></li>
+            <li><a href="mailto:cesarruben.fernandez@copime.org.ar" class="flex items-center gap-2 hover:text-white break-all"><svg width="18" height="18" class="shrink-0"><use href="#i-mail"/></svg>cesarruben.fernandez@copime.org.ar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-heading text-volt-400 text-lg font-bold mb-4">Servicios</h4>
+          <ul class="space-y-2 text-brand-100/80 text-sm">
+            <li>Tableros eléctricos</li>
+            <li>Iluminación LED interior y exterior</li>
+            <li>Diagnóstico y reparación de fallas</li>
+            <li>Instalaciones y recableado</li>
+            <li>Cámaras de seguridad (CCTV)</li>
+            <li>Mantenimiento preventivo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brand-100/50">
+        <p>&copy; <span id="year">2026</span> A&amp;C Asociados – Todos los derechos reservados</p>
+        <p class="flex items-center gap-2"><svg width="14" height="14" class="text-volt-400"><use href="#i-shield"/></svg>1 año de garantía en mano de obra</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================
+       LIGHTBOX
+  ================================================ -->
+  <div id="lightbox" class="fixed inset-0 z-[70] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button id="lbClose" class="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 text-white text-3xl leading-none hover:bg-white/20" aria-label="Cerrar">&times;</button>
+    <button id="lbPrev" class="absolute left-2 md:left-6 w-12 h-12 rounded-full bg-white/10 text-white text-2xl hover:bg-white/20" aria-label="Anterior">‹</button>
+    <img id="lbImg" src="" alt="" class="rounded-2xl shadow-2xl object-contain" />
+    <button id="lbNext" class="absolute right-2 md:right-6 w-12 h-12 rounded-full bg-white/10 text-white text-2xl hover:bg-white/20" aria-label="Siguiente">›</button>
+  </div>
+
+  <script>
+    // Sombra del nav al scrollear
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Menú mobile
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', false);
+    }));
+
+    // WhatsApp flotante: elegir número
+    const waBtn = document.getElementById('waBtn');
+    const waMenu = document.getElementById('waMenu');
+    waBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = waMenu.classList.toggle('hidden') === false;
+      waBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('waFloat').contains(e.target)) {
+        waMenu.classList.add('hidden'); waBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    // Filtro de galería
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-selected', 'false'));
+        btn.setAttribute('aria-selected', 'true');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('#gallery .g-item').forEach(p => {
+          const show = f === 'all' || p.dataset.cat === f;
+          p.style.display = show ? '' : 'none';
+          // el destacado grande solo en "Todo"
+          const first = p === document.querySelector('#gallery .g-item');
+          p.classList.toggle('col-span-2', f === 'all' && first);
+          p.classList.toggle('row-span-2', f === 'all' && first);
+        });
+      });
+    });
+
+    // Lightbox
+    const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg');
+    let lbList = [], lbIdx = 0;
+    const showLb = () => { const img = lbList[lbIdx]; lbImg.src = img.src; lbImg.alt = img.alt; };
+    const closeLb = () => { lb.classList.add('hidden'); lb.classList.remove('flex'); document.body.style.overflow = ''; };
+    document.querySelectorAll('#gallery .g-item').forEach(item => {
+      item.addEventListener('click', () => {
+        lbList = [...document.querySelectorAll('#gallery .g-item')].filter(i => i.style.display !== 'none').map(i => i.querySelector('img'));
+        lbIdx = lbList.indexOf(item.querySelector('img'));
+        showLb(); lb.classList.remove('hidden'); lb.classList.add('flex'); document.body.style.overflow = 'hidden';
+      });
+    });
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); lbIdx = (lbIdx - 1 + lbList.length) % lbList.length; showLb(); });
+    document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); lbIdx = (lbIdx + 1) % lbList.length; showLb(); });
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (lb.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+      if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+    });
+
+    // Un solo video reproduciéndose a la vez
+    document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => {
+      document.querySelectorAll('video').forEach(o => { if (o !== v) o.pause(); });
+    }));
+
+    // Animación de entrada
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
